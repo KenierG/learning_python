@@ -14,7 +14,7 @@ import os
 os.system('clear')
 def get_comet_data(api_key):
     print("::: COMET INFORMATION :::")
-    url = f"https://api.nasa.gov/neo/rest/v1/neo/3726712?api_key={api_key}"
+    url = f"https://api.nasa.gov/neo/rest/v1/neo/3726709?api_key={api_key}"
 
     try:
         #Realizar la solicitud a la API
@@ -31,7 +31,5 @@ def get_comet_data(api_key):
     except requests.exceptions.RequestException as e:
         print(f"Error al realizar la petición a la API de NASA: {e}") 
 
-
-
-api_key_nasa = 'YOUR NASA API_key'
+api_key_nasa = 't5u4Rmymd0b3wdNbAQ3QszcXhEVlBbd6pvFyUXRo'
 get_comet_data(api_key_nasa)

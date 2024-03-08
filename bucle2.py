@@ -17,7 +17,7 @@ def cajero():
         if my_clave_banco == clave :
             print("Has ingresado a tu cuenta")
             print(f"Intento satisfactorio: {cont_attempts}")
-            status = False #brake
+            status = False #break
         else :
             if cont_attempts < 3 :
                 print(f"Intento {cont_attempts}: Clave incorrecta, intenta nuevamente.")
