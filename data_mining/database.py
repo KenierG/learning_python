@@ -18,6 +18,7 @@ user_table = '''
         id INTEGER PRIMARY KEY, 
         firstname TEXT NOT NULL,
         lastname TEXT NOT NULL,
+        ident_number TEXT  UNIQUE NOT NULL,
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL
     );
@@ -30,3 +31,6 @@ cur.execute(user_table)
 con.commit()
 
 #print("::: Database market has been created :::")
+
+#Close connection
+#con.close()

@@ -5,7 +5,7 @@ U => Update (UPDATE)
 D => Delete (DELETE)
 '''
 
-from database import con, cur, sqlite3
+from database import con, cur
 import os
 import bcrypt
 
@@ -23,24 +23,36 @@ def crud(op):
         print("::: Signup form :::")
         fname = input("Your firstname: ")
         lname = input("Your lastname: ")
+        ident = input("Your ident number: ")
         email = input("Your email: ")
         passwd = input("Your password: ")
         passwd_hashed = hash_password(passwd)
 
         new_user = f'''
             INSERT INTO 
-                users (firstname, lastname, email, password) 
-                VALUES('{fname}', '{lname}', '{email}', "{passwd_hashed}")
+                users (firstname, lastname, ident_number, email, password) 
+                VALUES('{fname}', '{lname}', '{ident}', '{email}', "{passwd_hashed}")
         '''
         con.execute(new_user)
         con.commit()
 
         print("::: New user has been created sucessfully :::")
         os.system('pause')
+        menu()
     elif op == '2':
         #Read all the data from table users
         os.system('clear')
-        cur.execute("SELECT email FROM users")
+        cur.execute("SELECT * FROM users")
+        print(cur.fetchall())
+
+        os.system('pause')
+        menu()
+    elif op == '3':
+        os.system('clear')
+        print("::: SEARCH USER BY IDENTIFICATION NUMBER :::")
+        ident_num = input("Identification number: ")
+
+        cur.execute(f"SELECT email FROM users WHERE ident_number = '{ident_num}' ")
         print(cur.fetchall())
 
         os.system('pause')
@@ -70,8 +82,8 @@ def menu():
         if opt == '6':
             print("::: See 'u soon")
             break
-
-        crud(opt)
+        else:
+            crud(opt)
 
 menu()
 
