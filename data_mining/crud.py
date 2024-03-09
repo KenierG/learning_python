@@ -83,6 +83,26 @@ def update_user(op):
     os.system('pause')
     menu()
 
+def delete_user(op):
+    os.system('clear')
+    print("::: DELETE USER FORM :::")
+    iden = input("Enter the user identification: ")
+
+    cur.execute("SELECT firstname, lastname FROM users WHERE ident_number=?", [iden])
+    print(f"User to delete is: {cur.fetchall()}")
+
+    conf = input("Do you want to delete the user? (Y/n): ")
+    if conf == 'Y' or conf == 'y':
+        cur.execute(f"DELETE FROM users WHERE ident_number = '{iden}' ")
+        con.commit()
+        print("::: User has been deleted successfully :::")
+
+    cur.execute("SELECT firstname, lastname FROM users WHERE  ident_number=?", [iden])
+    print(f"Current name: {cur.fetchall()}")
+
+    os.system('pause')
+    menu()
+
 def menu():
     global opt
     status_opt = True
@@ -113,10 +133,13 @@ def menu():
             search_user(opt)
         elif opt == '4':
             update_user(opt)
-        elif opt == '6':
+        elif opt == '5':
+            delete_user(opt)    
+        else: 
             print("::: See 'u soon :::")
             exit()
-        
+    
+#Call main menu
 menu()
 
 #Close connection
