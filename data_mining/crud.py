@@ -3,6 +3,8 @@ C => Create (INSERT INTO)
 R => Read   (SELECT)
 U => Update (UPDATE)
 D => Delete (DELETE)
+
+UPDATE AND DELETE NEED A WHERE CLAUSE.
 '''
 
 from database import con, cur
@@ -53,8 +55,30 @@ def search_user(op):
     print("::: SEARCH USER BY IDENTIFICATION NUMBER :::")
     ident_num = input("Identification number: ")
 
-    cur.execute(f"SELECT email FROM users WHERE ident_number = '{ident_num}' ")
+    cur.execute(f"SELECT firstname, email FROM users WHERE ident_number = '{ident_num}' ")
     print(cur.fetchall())
+
+    os.system('pause')
+    menu()
+
+def update_user(op):
+    os.system('clear')
+    print("::: UPDATE USER FORM :::")
+    iden = input("User identification: ")
+
+    cur.execute("SELECT firstname FROM users WHERE  ident_number=?", [iden])
+    print(f"Current name: {cur.fetchall()}")
+
+    user_name = input("New user name: ")
+
+    conf = input("Do you want to update the user-name? (Y/n): ")
+    if conf == 'Y' or conf == 'y':
+        cur.execute(f"UPDATE users SET firstname = '{user_name}' WHERE ident_number = '{iden}' ")
+        con.commit()
+        print("::: User-name has been updated successfully :::")
+
+    cur.execute("SELECT firstname FROM users WHERE  ident_number=?", [iden])
+    print(f"Current name: {cur.fetchall()}")
 
     os.system('pause')
     menu()
@@ -87,6 +111,8 @@ def menu():
             list_users(opt)
         elif opt == '3':
             search_user(opt)
+        elif opt == '4':
+            update_user(opt)
         elif opt == '6':
             print("::: See 'u soon :::")
             exit()
