@@ -20,7 +20,9 @@ user_table = '''
         lastname TEXT NOT NULL,
         ident_number TEXT  UNIQUE NOT NULL,
         email TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        status BOOLEAN DEFAULT true,
+        created_at TIMESTAMP DEFAULT (datetime('now','localtime'))
     );
 '''
 
