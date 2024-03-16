@@ -22,7 +22,9 @@ user_table = '''
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL,
         status BOOLEAN DEFAULT true,
-        created_at TIMESTAMP DEFAULT (datetime('now','localtime'))
+        created_at TIMESTAMP DEFAULT (datetime('now','localtime')),
+        updated_at TIMESTAMP NULL,
+        deleted_at TIMESTAMP NULL
     );
 '''
 
